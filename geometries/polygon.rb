@@ -20,4 +20,19 @@ class Polygon
     total / 2.0
 	end
 
+	def bounding_box
+		x_min, x_max = nodes.minmax_by(&:x).map(&:x)
+    y_min, y_max = nodes.minmax_by(&:y).map(&:y)
+    {  min: Point.new(x_min, y_min),
+    	 max: Point.new(x_max, y_max) }
+	end
+
+	def center_point
+		x_min, x_max = nodes.minmax_by(&:x).map(&:x)
+    y_min, y_max = nodes.minmax_by(&:y).map(&:y)
+    x_coord = (x_max + x_min) / 2.0
+    y_coord = (y_max + y_min) / 2.0
+    Point.new(x_coord, y_coord)
+  end
+
 end
