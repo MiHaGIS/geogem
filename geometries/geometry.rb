@@ -1,4 +1,5 @@
 require_relative './point.rb'
+require_relative ',/line.rb'
 require_relative './polygon.rb'
 
 class Geometry
@@ -8,6 +9,10 @@ class Geometry
 		if wkt.downcase.start_with?('point')
 			easting, northing = nodes.split(' ')
 			Point.new(easting.to_f, northing.to_f)
+		elsif wkt.downcase.start_with('linestring')
+			points = nodes.split(',')
+			point_list = points.map { |p| p.strip.split().map(&:to_f) }
+			Line.new(point_list)
 		elsif wkt.downcase.start_with?('polygon')
 			points = nodes.split(',')
 			point_list = points.map { |p| p.strip.split().map(&:to_f) }
